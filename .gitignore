@@ -1,4 +1,4 @@
 .DS_Store
-.env
+turso.db
 _fresh/
 node_modules/
