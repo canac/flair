@@ -21,6 +21,19 @@ export const handler = define.handlers({
     }
     const recipeUrl = sanitizeUrl(url);
 
+    const client = await connect();
+    const existing = await client.execute({
+      sql: "SELECT id FROM recipes WHERE url = ?",
+      args: [recipeUrl],
+    });
+    const existingRow = existing.rows[0];
+    if (existingRow) {
+      return new Response(null, {
+        status: 303,
+        headers: { Location: `/recipes/${existingRow.id}` },
+      });
+    }
+
     const res = await fetch(recipeUrl);
     const $ = cheerio.load(await res.text());
 
@@ -28,14 +41,14 @@ export const handler = define.handlers({
       $("title").text().trim() || null;
     const imageUrl = $('meta[property="og:image"]').attr("content") ?? null;
 
-    await (await connect()).execute({
+    const result = await client.execute({
       sql: "INSERT INTO recipes (url, name, image_url) VALUES (?, ?, ?)",
       args: [recipeUrl, name, imageUrl],
     });
 
     return new Response(null, {
       status: 303,
-      headers: { Location: "/" },
+      headers: { Location: `/recipes/${result.lastInsertRowid}` },
     });
   },
 });

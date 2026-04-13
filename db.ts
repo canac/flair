@@ -21,16 +21,17 @@ export function connect(): Promise<Client> {
     }
 
     const client = createClient({ url, authToken });
-    clientPromise = client.execute(`
-      CREATE TABLE IF NOT EXISTS recipes (
+    clientPromise = client.batch([
+      `CREATE TABLE IF NOT EXISTS recipes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         url TEXT NOT NULL,
         name TEXT,
         image_url TEXT,
         adjustments TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP
-      )
-    `).then(() => client);
+      )`,
+      `CREATE UNIQUE INDEX IF NOT EXISTS recipes_url_unique ON recipes (url)`,
+    ]).then(() => client);
   }
   return clientPromise;
 }
