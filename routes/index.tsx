@@ -1,5 +1,6 @@
-import { define } from "../utils.ts";
-import { query, type Recipe } from "../db.ts";
+import { define } from "@/utils.ts";
+import { query, type Recipe } from "@/db.ts";
+import "./index.css";
 
 export default define.page(async function Home() {
   const recipes = await query<Recipe>(
@@ -7,36 +8,37 @@ export default define.page(async function Home() {
   );
 
   return (
-    <div class="px-4 py-8 mx-auto max-w-screen-md">
-      <h1 class="text-4xl font-bold my-4">Recipes</h1>
-      <form method="POST" action="/recipes" class="flex gap-2 my-6">
+    <div class="page">
+      <h1 class="page-title">Recipes</h1>
+      <form method="POST" action="/recipes" class="add-form">
         <input
           type="url"
           name="url"
           required
-          placeholder="https://..."
-          class="border-2 border-gray-500 rounded-sm px-2 py-1 flex-1"
+          placeholder="Paste a recipe URL..."
+          class="url-input"
         />
-        <button
-          type="submit"
-          class="border-2 border-gray-500 rounded-sm px-2 py-1 bg-white hover:bg-gray-200"
-        >
-          Add
-        </button>
+        <button type="submit" class="btn btn-primary">Add</button>
       </form>
-      <ul class="flex flex-col gap-4">
+      <ul class="recipe-grid">
         {recipes.map((recipe) => (
-          <li class="flex gap-4 items-center">
-            {recipe.image_url && (
-              <img
-                src={recipe.image_url}
-                alt=""
-                width={80}
-                height={80}
-                style={{ objectFit: "cover" }}
-              />
-            )}
-            <a href={`/recipes/${recipe.id}`}>{recipe.name ?? recipe.url}</a>
+          <li>
+            <a href={`/recipes/${recipe.id}`} class="recipe-card">
+              {recipe.image_url
+                ? (
+                  <img
+                    src={recipe.image_url}
+                    alt=""
+                    class="recipe-card-image"
+                  />
+                )
+                : <div class="recipe-card-image-placeholder" />}
+              <div class="recipe-card-body">
+                <div class="recipe-card-title">
+                  {recipe.name ?? recipe.url}
+                </div>
+              </div>
+            </a>
           </li>
         ))}
       </ul>

@@ -1,4 +1,5 @@
-import { define } from "../utils.ts";
+import { define } from "@/utils.ts";
+import "./_app.css";
 
 export default define.page(function App({ Component }) {
   return (
@@ -9,6 +10,11 @@ export default define.page(function App({ Component }) {
         <title>Flair</title>
       </head>
       <body>
+        <nav class="navbar">
+          <div class="navbar-inner">
+            <a href="/" class="navbar-brand">Flair</a>
+          </div>
+        </nav>
         <Component />
       </body>
     </html>
