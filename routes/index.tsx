@@ -1,10 +1,9 @@
 import { define } from "../utils.ts";
-import { connect } from "../db.ts";
+import { query, type Recipe } from "../db.ts";
 
 export default define.page(async function Home() {
-  const db = await connect();
-  const result = await db.execute(
-    "SELECT name, url, image_url FROM recipes ORDER BY id DESC",
+  const recipes = await query<Recipe>(
+    "SELECT id, name, url, image_url FROM recipes ORDER BY created_at DESC",
   );
 
   return (
@@ -26,18 +25,18 @@ export default define.page(async function Home() {
         </button>
       </form>
       <ul class="flex flex-col gap-4">
-        {result.rows.map((row) => (
+        {recipes.map((recipe) => (
           <li class="flex gap-4 items-center">
-            {row.image_url && (
+            {recipe.image_url && (
               <img
-                src={row.image_url as string}
+                src={recipe.image_url}
                 alt=""
                 width={80}
                 height={80}
                 style={{ objectFit: "cover" }}
               />
             )}
-            <a href={row.url as string}>{row.name as string ?? row.url}</a>
+            <a href={`/recipes/${recipe.id}`}>{recipe.name ?? recipe.url}</a>
           </li>
         ))}
       </ul>
