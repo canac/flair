@@ -8,6 +8,11 @@ export default defineConfig({
     port: process.env.PORT ? Number(process.env.PORT) : undefined,
   },
   ssr: {
-    external: ["@libsql/client", "cheerio", "encoding-sniffer", "iconv-lite"],
+    external: ["@libsql/client", "cheerio", "encoding-sniffer", "iconv-lite", "whatwg-encoding"],
+  },
+  build: {
+    rollupOptions: {
+      external: ["@libsql/client", "cheerio", "encoding-sniffer", "iconv-lite", "whatwg-encoding"],
+    },
   },
 });
