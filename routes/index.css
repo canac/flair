@@ -6,11 +6,26 @@
   color: var(--theme-text-strong);
 }
 
-.add-form {
+.add-form,
+.search-form {
   display: flex;
+  align-items: stretch;
   gap: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   width: 100%;
+}
+
+.add-form .url-input,
+.search-form .url-input,
+.add-form .btn,
+.search-form .btn {
+  height: 2.625rem;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.add-form {
+  margin-bottom: 2rem;
 }
 
 .url-input {

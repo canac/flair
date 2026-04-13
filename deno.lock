@@ -1533,6 +1533,7 @@
     "dependencies": [
       "jsr:@fresh/core@^2.2.2",
       "jsr:@fresh/plugin-vite@^1.0.8",
+      "jsr:@std/async@1",
       "npm:@libsql/client@0.15",
       "npm:@preact/signals@^2.5.0",
       "npm:cheerio@1",
