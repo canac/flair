@@ -35,16 +35,16 @@ export const handler = define.handlers({
     }
 
     const res = await fetch(recipeUrl);
-    const { name, imageUrl, ingredients, instructions } = extractRecipeData(
-      await res.text(),
-    );
+    const { name, description, imageUrl, ingredients, instructions } =
+      extractRecipeData(await res.text());
 
     const result = await client.execute({
       sql:
-        "INSERT INTO recipes (url, name, image_url, ingredients, instructions) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO recipes (url, name, description, image_url, ingredients, instructions) VALUES (?, ?, ?, ?, ?, ?)",
       args: [
         recipeUrl,
         name,
+        description,
         imageUrl,
         ingredients.join("\n"),
         instructions.join("\n"),

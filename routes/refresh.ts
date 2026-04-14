@@ -18,14 +18,14 @@ export const handler = define.handlers({
           continue;
         }
 
-        const { name, imageUrl, ingredients, instructions } = extractRecipeData(
-          await res.text(),
-        );
+        const { name, description, imageUrl, ingredients, instructions } =
+          extractRecipeData(await res.text());
         await client.execute({
           sql:
-            "UPDATE recipes SET name = ?, image_url = ?, ingredients = ?, instructions = ? WHERE id = ?",
+            "UPDATE recipes SET name = ?, description = ?, image_url = ?, ingredients = ?, instructions = ? WHERE id = ?",
           args: [
             name,
+            description,
             imageUrl,
             ingredients.join("\n"),
             instructions.join("\n"),

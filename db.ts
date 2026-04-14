@@ -5,6 +5,7 @@ export type Recipe = {
   created_at: string;
   url: string;
   name: string | null;
+  description: string | null;
   image_url: string | null;
   ingredients: string | null;
   instructions: string | null;
@@ -29,6 +30,7 @@ export function connect(): Promise<Client> {
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         url TEXT NOT NULL,
         name TEXT,
+        description TEXT,
         image_url TEXT,
         ingredients TEXT,
         instructions TEXT,

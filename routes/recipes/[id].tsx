@@ -11,7 +11,7 @@ export const handler = define.handlers({
 
     const [recipe] = await query<Recipe>({
       sql:
-        "SELECT id, url, name, image_url, ingredients, instructions, adjustments FROM recipes WHERE id = ?",
+        "SELECT id, url, name, description, image_url, ingredients, instructions, adjustments FROM recipes WHERE id = ?",
       args: [ctx.params.id],
     });
     if (!recipe) {
@@ -74,6 +74,9 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
         >
           <img src={recipe.image_url} alt="" class="recipe-hero-image" />
         </a>
+      )}
+      {recipe.description && (
+        <p class="recipe-description">{recipe.description}</p>
       )}
       {ingredients.length > 0 && (
         <>

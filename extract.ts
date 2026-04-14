@@ -2,6 +2,7 @@ import * as cheerio from "cheerio";
 
 type RecipeStructuredData = {
   name: string | null;
+  description: string | null;
   imageUrl: string | null;
   ingredients: string[];
   instructions: string[];
@@ -73,6 +74,8 @@ export function extractRecipeData(html: string): RecipeStructuredData {
 
   const name = $('meta[property="og:title"]').attr("content") ||
     $("title").text().trim() || null;
+  const description = $('meta[property="og:description"]').attr("content") ||
+    $('meta[name="description"]').attr("content") || null;
   const imageUrl = $('meta[property="og:image"]').attr("content") ?? null;
 
   const nodes: Record<string, unknown>[] = [];
@@ -98,5 +101,5 @@ export function extractRecipeData(html: string): RecipeStructuredData {
   const instructions = parseInstructions(recipe?.recipeInstructions)
     .map(decodeEntities);
 
-  return { name, imageUrl, ingredients, instructions };
+  return { name, description, imageUrl, ingredients, instructions };
 }

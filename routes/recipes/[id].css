@@ -42,10 +42,6 @@
   color: var(--theme-text-muted);
   margin-bottom: 0.75rem;
   margin-top: 1.5rem;
-
-  &:first-of-type {
-    margin-top: 0;
-  }
 }
 
 .recipe-ingredients,
