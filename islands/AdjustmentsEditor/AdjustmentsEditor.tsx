@@ -18,38 +18,34 @@ export default function AdjustmentsEditor(
 
   if (editing) {
     return (
-      <form method="POST" action={`/recipes/${recipeId}`} class="edit-form">
-        <textarea
-          name="adjustments"
-          rows={8}
-          class="adjustments-textarea"
-          value={text}
-        />
-        <div class="edit-actions">
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button
-            type="button"
-            onClick={() =>
-              setEditing(false)}
-            class="btn btn-secondary"
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+      <>
+        <h2 class="section-title">Adjustments</h2>
+        <form method="POST" action={`/recipes/${recipeId}`} class="edit-form">
+          <textarea
+            name="adjustments"
+            rows={8}
+            class="adjustments-textarea"
+            value={text}
+          />
+          <div class="edit-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button
+              type="button"
+              onClick={() => setEditing(false)}
+              class="btn btn-secondary"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </>
     );
   }
 
   return (
     <>
-      {adjustmentLines.length > 0
-        ? (
-          <ul class="adjustments-list">
-            {adjustmentLines.map((line, index) => <li key={index}>{line}</li>)}
-          </ul>
-        )
-        : <p class="adjustments-empty">No adjustments yet.</p>}
-      <div class="edit-button-row">
+      <div class="adjustments-header">
+        <h2 class="section-title">Adjustments</h2>
         <button
           type="button"
           onClick={() => setEditing(true)}
@@ -58,6 +54,13 @@ export default function AdjustmentsEditor(
           Edit
         </button>
       </div>
+      {adjustmentLines.length > 0
+        ? (
+          <ul class="adjustments-list">
+            {adjustmentLines.map((line, index) => <li key={index}>{line}</li>)}
+          </ul>
+        )
+        : <p class="adjustments-empty">No adjustments yet.</p>}
     </>
   );
 }

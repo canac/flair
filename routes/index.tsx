@@ -8,7 +8,7 @@ export default define.page(async function Home(ctx) {
   const recipes = searchQuery
     ? await query<Recipe>({
       sql:
-        "SELECT id, name, url, image_url FROM recipes WHERE name LIKE ? ORDER BY created_at DESC",
+        "SELECT id, name, url, image_url FROM recipes WHERE name LIKE ?1 OR ingredients LIKE ?1 OR instructions LIKE ?1 OR adjustments LIKE ?1 ORDER BY created_at DESC",
       args: [`%${searchQuery}%`],
     })
     : await query<Recipe>(

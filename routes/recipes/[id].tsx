@@ -11,7 +11,7 @@ export const handler = define.handlers({
 
     const [recipe] = await query<Recipe>({
       sql:
-        "SELECT id, url, name, image_url, adjustments FROM recipes WHERE id = ?",
+        "SELECT id, url, name, image_url, ingredients, instructions, adjustments FROM recipes WHERE id = ?",
       args: [ctx.params.id],
     });
     if (!recipe) {
@@ -41,8 +41,17 @@ export const handler = define.handlers({
   },
 });
 
+function parseList(value: string | null): string[] {
+  if (!value) {
+    return [];
+  }
+  return value.split("\n").map((line) => line.trim()).filter((line) => line);
+}
+
 export default define.page<typeof handler>(function RecipePage({ data }) {
   const { recipe } = data;
+  const ingredients = parseList(recipe.ingredients);
+  const instructions = parseList(recipe.instructions);
 
   return (
     <div class="page-narrow">
@@ -58,9 +67,32 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
         </a>
       </h1>
       {recipe.image_url && (
-        <img src={recipe.image_url} alt="" class="recipe-hero-image" />
+        <a
+          href={recipe.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src={recipe.image_url} alt="" class="recipe-hero-image" />
+        </a>
       )}
-      <h2 class="section-title">Adjustments</h2>
+      {ingredients.length > 0 && (
+        <>
+          <h2 class="section-title">Ingredients</h2>
+          <ul class="recipe-ingredients">
+            {ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+        </>
+      )}
+      {instructions.length > 0 && (
+        <>
+          <h2 class="section-title">Instructions</h2>
+          <ol class="recipe-instructions">
+            {instructions.map((step, index) => <li key={index}>{step}</li>)}
+          </ol>
+        </>
+      )}
       <AdjustmentsEditor
         recipeId={recipe.id}
         adjustments={recipe.adjustments}

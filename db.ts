@@ -2,11 +2,13 @@ import { type Client, createClient, type InStatement } from "@libsql/client";
 
 export type Recipe = {
   id: number;
+  created_at: string;
   url: string;
   name: string | null;
   image_url: string | null;
+  ingredients: string | null;
+  instructions: string | null;
   adjustments: string | null;
-  created_at: string;
 };
 
 let clientPromise: Promise<Client> | null = null;
@@ -24,11 +26,13 @@ export function connect(): Promise<Client> {
     clientPromise = client.batch([
       `CREATE TABLE IF NOT EXISTS recipes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         url TEXT NOT NULL,
         name TEXT,
         image_url TEXT,
-        adjustments TEXT,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        ingredients TEXT,
+        instructions TEXT,
+        adjustments TEXT
       )`,
       `CREATE UNIQUE INDEX IF NOT EXISTS recipes_url_unique ON recipes (url)`,
     ]).then(() => client);

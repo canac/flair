@@ -1,6 +1,6 @@
-import * as cheerio from "cheerio";
-import { define } from "../utils.ts";
-import { connect } from "../db.ts";
+import { define } from "@/utils.ts";
+import { connect } from "@/db.ts";
+import { extractRecipeData } from "@/extract.ts";
 
 /**
  * Strip query params from a recipe URL
@@ -35,15 +35,20 @@ export const handler = define.handlers({
     }
 
     const res = await fetch(recipeUrl);
-    const $ = cheerio.load(await res.text());
-
-    const name = $('meta[property="og:title"]').attr("content") ||
-      $("title").text().trim() || null;
-    const imageUrl = $('meta[property="og:image"]').attr("content") ?? null;
+    const { name, imageUrl, ingredients, instructions } = extractRecipeData(
+      await res.text(),
+    );
 
     const result = await client.execute({
-      sql: "INSERT INTO recipes (url, name, image_url) VALUES (?, ?, ?)",
-      args: [recipeUrl, name, imageUrl],
+      sql:
+        "INSERT INTO recipes (url, name, image_url, ingredients, instructions) VALUES (?, ?, ?, ?, ?)",
+      args: [
+        recipeUrl,
+        name,
+        imageUrl,
+        ingredients.join("\n"),
+        instructions.join("\n"),
+      ],
     });
 
     return new Response(null, {
