@@ -15,6 +15,8 @@ export default define.page(async function Home(ctx) {
       "SELECT id, name, url, image_url FROM recipes ORDER BY created_at DESC",
     );
 
+  ctx.state.title = "Recipes";
+
   return (
     <div class="page">
       <h1 class="page-title">Recipes</h1>

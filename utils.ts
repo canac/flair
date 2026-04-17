@@ -1,3 +1,7 @@
 import { createDefine } from "fresh";
 
-export const define = createDefine();
+interface State {
+  title?: string;
+}
+
+export const define = createDefine<State>();

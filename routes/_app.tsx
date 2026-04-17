@@ -1,13 +1,13 @@
 import { define } from "@/utils.ts";
 import "./_app.css";
 
-export default define.page(function App({ Component }) {
+export default define.page(function App({ Component, state }) {
   return (
     <html>
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Flair</title>
+        <title>{state.title ? `Flair | ${state.title}` : "Flair"}</title>
       </head>
       <body>
         <nav class="navbar">

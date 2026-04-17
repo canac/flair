@@ -18,6 +18,8 @@ export const handler = define.handlers({
       return new Response("Not found", { status: 404 });
     }
 
+    ctx.state.title = recipe.name ?? recipe.url;
+
     return page({ recipe });
   },
   async POST(ctx) {
