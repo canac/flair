@@ -19,19 +19,16 @@ export default define.page(async function Home(ctx) {
 
   return (
     <div class="page">
-      <h1 class="page-title">Recipes</h1>
-      <div class="search-form">
-        <RecipeSearch initialQuery={searchQuery} />
-      </div>
+      <h1>Recipes</h1>
+      <RecipeSearch initialQuery={searchQuery} />
       <form method="POST" action="/recipes" class="add-form">
         <input
           type="url"
           name="url"
           required
           placeholder="Paste a recipe URL..."
-          class="url-input"
         />
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn-primary">Add</button>
       </form>
       <ul class="recipe-grid">
         {recipes.map((recipe) => (

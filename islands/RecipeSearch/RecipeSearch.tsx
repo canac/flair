@@ -30,7 +30,6 @@ export default function RecipeSearch({ initialQuery }: RecipeSearchProps) {
         navigateToQuery(nextQuery);
       }}
       placeholder="Search recipes by name..."
-      class="url-input"
     />
   );
 }

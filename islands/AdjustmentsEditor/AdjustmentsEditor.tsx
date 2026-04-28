@@ -19,7 +19,7 @@ export default function AdjustmentsEditor(
   if (editing) {
     return (
       <>
-        <h2 class="section-title">Adjustments</h2>
+        <h2>Adjustments</h2>
         <form method="POST" action={`/recipes/${recipeId}`} class="edit-form">
           <textarea
             name="adjustments"
@@ -28,11 +28,11 @@ export default function AdjustmentsEditor(
             value={text}
           />
           <div class="edit-actions">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn-primary">Save</button>
             <button
               type="button"
               onClick={() => setEditing(false)}
-              class="btn btn-secondary"
+              class="btn-secondary"
             >
               Cancel
             </button>
@@ -45,11 +45,11 @@ export default function AdjustmentsEditor(
   return (
     <>
       <div class="adjustments-header">
-        <h2 class="section-title">Adjustments</h2>
+        <h2>Adjustments</h2>
         <button
           type="button"
           onClick={() => setEditing(true)}
-          class="btn btn-secondary"
+          class="btn-secondary"
         >
           Edit
         </button>

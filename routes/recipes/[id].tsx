@@ -56,9 +56,9 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
   const instructions = parseList(recipe.instructions);
 
   return (
-    <div class="page-narrow">
+    <div class="page page-narrow">
       <a href="/" class="back-link">&larr; Back to recipes</a>
-      <h1 class="recipe-title">
+      <h1>
         <a
           href={recipe.url}
           target="_blank"
@@ -82,7 +82,7 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
       )}
       {ingredients.length > 0 && (
         <>
-          <h2 class="section-title">Ingredients</h2>
+          <h2>Ingredients</h2>
           <ul class="recipe-ingredients">
             {ingredients.map((ingredient, index) => (
               <li key={index}>{ingredient}</li>
@@ -92,7 +92,7 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
       )}
       {instructions.length > 0 && (
         <>
-          <h2 class="section-title">Instructions</h2>
+          <h2>Instructions</h2>
           <ol class="recipe-instructions">
             {instructions.map((step, index) => <li key={index}>{step}</li>)}
           </ol>

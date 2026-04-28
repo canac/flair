@@ -13,21 +13,8 @@
 }
 
 .adjustments-textarea {
-  width: 100%;
-  padding: 0.625rem 0.875rem;
-  border: 1px solid var(--theme-border-strong);
-  border-radius: 0.5rem;
-  font-size: 0.95rem;
   font-family: inherit;
-  background-color: var(--theme-surface);
   resize: vertical;
-  transition: border-color 150ms, box-shadow 150ms;
-
-  &:focus {
-    outline: none;
-    border-color: var(--theme-primary);
-    box-shadow: 0 0 0 3px var(--theme-primary-ring);
-  }
 }
 
 .edit-form {

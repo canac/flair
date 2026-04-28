@@ -1,48 +1,10 @@
-.page-title {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
-  color: var(--theme-text-strong);
-}
-
-.add-form,
-.search-form {
+.add-form {
   display: flex;
   align-items: stretch;
   gap: 0.5rem;
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
-.add-form .url-input,
-.search-form .url-input,
-.add-form .btn,
-.search-form .btn {
-  height: 2.625rem;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.add-form {
+  margin-top: 1rem;
   margin-bottom: 2rem;
-}
-
-.url-input {
-  flex: 1;
   width: 100%;
-  padding: 0.625rem 0.875rem;
-  border: 1px solid var(--theme-border-strong);
-  border-radius: 0.5rem;
-  font-size: 0.95rem;
-  background-color: var(--theme-surface);
-  transition: border-color 150ms, box-shadow 150ms;
-
-  &:focus {
-    outline: none;
-    border-color: var(--theme-primary);
-    box-shadow: 0 0 0 3px var(--theme-primary-ring);
-  }
 }
 
 .recipe-grid {
@@ -66,7 +28,7 @@
   flex-direction: column;
   background-color: var(--theme-surface);
   border: 1px solid var(--theme-border);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   transition: transform 150ms, box-shadow 150ms, border-color 150ms;
 
@@ -77,16 +39,18 @@
   }
 }
 
-.recipe-card-image {
+.recipe-card-image,
+.recipe-card-image-placeholder {
   width: 100%;
   aspect-ratio: 4 / 3;
+}
+
+.recipe-card-image {
   object-fit: cover;
   background-color: var(--theme-surface-hover);
 }
 
 .recipe-card-image-placeholder {
-  width: 100%;
-  aspect-ratio: 4 / 3;
   background: linear-gradient(
     135deg,
     var(--theme-placeholder-from),
@@ -100,7 +64,7 @@
 
 .recipe-card-title {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: bold;
   color: var(--theme-text-strong);
   line-height: 1.35;
   display: -webkit-box;
