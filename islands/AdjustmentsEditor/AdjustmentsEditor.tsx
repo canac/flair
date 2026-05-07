@@ -56,8 +56,15 @@ export default function AdjustmentsEditor(
       </div>
       {adjustmentLines.length > 0
         ? (
-          <ul class="adjustments-list">
-            {adjustmentLines.map((line, index) => <li key={index}>{line}</li>)}
+          <ul class="checklist">
+            {adjustmentLines.map((line, index) => (
+              <li key={index}>
+                <label>
+                  <input type="checkbox" />
+                  <span>{line}</span>
+                </label>
+              </li>
+            ))}
           </ul>
         )
         : <p class="adjustments-empty">No adjustments yet.</p>}

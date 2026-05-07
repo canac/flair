@@ -83,9 +83,14 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
       {ingredients.length > 0 && (
         <>
           <h2>Ingredients</h2>
-          <ul class="recipe-ingredients">
+          <ul class="checklist">
             {ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
+              <li key={index}>
+                <label>
+                  <input type="checkbox" />
+                  <span>{ingredient}</span>
+                </label>
+              </li>
             ))}
           </ul>
         </>
@@ -93,8 +98,15 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
       {instructions.length > 0 && (
         <>
           <h2>Instructions</h2>
-          <ol class="recipe-instructions">
-            {instructions.map((step, index) => <li key={index}>{step}</li>)}
+          <ol class="checklist">
+            {instructions.map((step, index) => (
+              <li key={index}>
+                <label>
+                  <input type="checkbox" />
+                  <span>{step}</span>
+                </label>
+              </li>
+            ))}
           </ol>
         </>
       )}
