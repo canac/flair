@@ -1,6 +1,7 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@canac/deno-lint-plugins@*": "0.1.0",
     "jsr:@deno/esbuild-plugin@^1.2.0": "1.2.1",
     "jsr:@deno/loader@~0.3.10": "0.3.14",
     "jsr:@deno/loader@~0.3.2": "0.3.14",
@@ -51,6 +52,9 @@
     "npm:vite@^7.1.4": "7.3.1"
   },
   "jsr": {
+    "@canac/deno-lint-plugins@0.1.0": {
+      "integrity": "2424beb1c00d6cc1a74e5620cff5bae909399bba7739ef2fdff089aa20c200db"
+    },
     "@deno/esbuild-plugin@1.2.1": {
       "integrity": "df629467913adc1f960149fdfa3a3430ba8c20381c310fba096db244e6c3c9f6",
       "dependencies": [

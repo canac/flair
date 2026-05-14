@@ -41,10 +41,13 @@ function decodeEntities(text: string): string {
     .replace(/&apos;/g, "'")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
-    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(
+      /&#(\d+);/g,
+      (_, codePoint) => String.fromCodePoint(Number(codePoint)),
+    )
     .replace(
       /&#x([0-9a-f]+);/gi,
-      (_, n) => String.fromCodePoint(parseInt(n, 16)),
+      (_, codePoint) => String.fromCodePoint(parseInt(codePoint, 16)),
     );
 }
 

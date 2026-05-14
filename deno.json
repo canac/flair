@@ -10,7 +10,11 @@
   "lint": {
     "rules": {
       "tags": ["fresh", "recommended"]
-    }
+    },
+    "plugins": [
+      "jsr:@canac/deno-lint-plugins/descriptive-names",
+      "jsr:@canac/deno-lint-plugins/multiline-control-flow"
+    ]
   },
   "exclude": [
     "**/_fresh/*"
