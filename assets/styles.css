@@ -189,10 +189,11 @@ input[type="checkbox"] {
   margin-bottom: 1rem;
 
   & label {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
     cursor: pointer;
+
+    > input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
   }
 
   & input[type="checkbox"]:checked + span {
