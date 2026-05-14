@@ -51,5 +51,11 @@
     ],
     "types": ["vite/client"],
     "noUncheckedIndexedAccess": true
+  },
+  "test": {
+    "permissions": {
+      "env": true,
+      "ffi": true
+    }
   }
 }
