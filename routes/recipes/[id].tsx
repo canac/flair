@@ -58,7 +58,7 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
   return (
     <div class="page page-narrow">
       <a href="/" class="back-link">&larr; Back to recipes</a>
-      <h1>
+      <h1 style={`view-transition-name: vt-title-${recipe.id}`}>
         <a
           href={recipe.url}
           target="_blank"
@@ -74,7 +74,12 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src={recipe.image_url} alt="" class="recipe-hero-image" />
+          <img
+            src={recipe.image_url}
+            alt=""
+            class="recipe-hero-image"
+            style={`view-transition-name: vt-img-${recipe.id}`}
+          />
         </a>
       )}
       {recipe.description && (

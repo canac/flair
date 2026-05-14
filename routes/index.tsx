@@ -40,11 +40,15 @@ export default define.page(async function Home(ctx) {
                     src={recipe.image_url}
                     alt=""
                     class="recipe-card-image"
+                    style={`view-transition-name: vt-img-${recipe.id}`}
                   />
                 )
                 : <div class="recipe-card-image-placeholder" />}
               <div class="recipe-card-body">
-                <div class="recipe-card-title">
+                <div
+                  class="recipe-card-title"
+                  style={`view-transition-name: vt-title-${recipe.id}`}
+                >
                   {recipe.name ?? recipe.url}
                 </div>
               </div>
