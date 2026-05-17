@@ -188,16 +188,17 @@ input[type="checkbox"] {
   padding-left: 0;
   margin-bottom: 1rem;
 
-  & label {
+  label {
     cursor: pointer;
-
-    > input[type="checkbox"] {
-      margin-right: 0.5rem;
-    }
   }
 
-  & input[type="checkbox"]:checked + span {
-    text-decoration: line-through;
-    color: var(--theme-text-faint);
+  input[type="checkbox"] {
+    padding: 0;
+    margin-right: 0.5rem;
+
+    &:checked + span {
+      text-decoration: line-through;
+      color: var(--theme-text-faint);
+    }
   }
 }
