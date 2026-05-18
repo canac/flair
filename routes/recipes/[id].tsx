@@ -11,12 +11,13 @@ export const handler = define.handlers({
 
     const [recipe] = await query<Recipe>({
       sql:
-        "SELECT id, url, name, description, image_url, ingredients, instructions, adjustments FROM recipes WHERE id = ?",
+        "SELECT id, url, name, description, image_url, ingredients, instructions, adjustments, pinned_at IS NOT NULL AS pinned FROM recipes WHERE id = ?",
       args: [ctx.params.id],
     });
     if (!recipe) {
       return new Response("Not found", { status: 404 });
     }
+    recipe.pinned = Boolean(recipe.pinned);
 
     ctx.state.title = recipe.name ?? recipe.url;
 
@@ -57,7 +58,19 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
 
   return (
     <div class="page page-narrow">
-      <a href="/" class="back-link">&larr; Back to recipes</a>
+      <div class="recipe-toolbar">
+        <a href="/" class="back-link">&larr; Back to recipes</a>
+        <form method="POST" action={`/recipes/${recipe.id}/pin`}>
+          <button
+            type="submit"
+            class="pin-button"
+            aria-label={recipe.pinned ? "Unpin recipe" : "Pin recipe"}
+            title={recipe.pinned ? "Unpin recipe" : "Pin recipe"}
+          >
+            <span class={`pin-icon ${recipe.pinned ? "filled" : ""}`} />
+          </button>
+        </form>
+      </div>
       <h1 style={`view-transition-name: vt-title-${recipe.id}`}>
         <a
           href={recipe.url}

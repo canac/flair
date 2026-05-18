@@ -1,14 +1,49 @@
+.recipe-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
 .back-link {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
   font-size: 0.875rem;
   color: var(--theme-text-faint);
-  margin-bottom: 1rem;
 
   &:hover {
     color: var(--theme-text-strong);
   }
+}
+
+.pin-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem;
+  border: 1px solid var(--theme-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--theme-surface);
+  color: var(--theme-text-strong);
+  cursor: pointer;
+  transition: background-color 150ms, border-color 150ms;
+
+  &:hover {
+    background-color: var(--theme-surface-hover);
+    border-color: var(--theme-border-strong);
+  }
+}
+
+.pin-icon {
+  width: 20px;
+  height: 20px;
+  background-color: currentColor;
+  mask: url(/pin-unfilled.svg) center / contain no-repeat;
+}
+
+.pin-icon.filled {
+  mask-image: url(/pin-filled.svg);
 }
 
 .recipe-title-link {

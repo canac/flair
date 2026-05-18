@@ -10,6 +10,7 @@ export type Recipe = {
   ingredients: string | null;
   instructions: string | null;
   adjustments: string | null;
+  pinned: boolean;
 };
 
 let clientPromise: Promise<Client> | null = null;
@@ -34,7 +35,8 @@ export function connect(): Promise<Client> {
         image_url TEXT,
         ingredients TEXT,
         instructions TEXT,
-        adjustments TEXT
+        adjustments TEXT,
+        pinned_at TEXT
       )`,
       `CREATE UNIQUE INDEX IF NOT EXISTS recipes_url_unique ON recipes (url)`,
     ]).then(() => client);
