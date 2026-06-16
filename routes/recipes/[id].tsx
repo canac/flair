@@ -59,7 +59,16 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
   return (
     <div class="page page-narrow">
       <div class="recipe-toolbar">
-        <a href="/" class="back-link">&larr; Back to recipes</a>
+        <h1 style={`view-transition-name: vt-title-${recipe.id}`}>
+          <a
+            href={recipe.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="recipe-title-link"
+          >
+            {recipe.name ?? recipe.url}
+          </a>
+        </h1>
         <form method="POST" action={`/recipes/${recipe.id}/pin`}>
           <button
             type="submit"
@@ -71,16 +80,6 @@ export default define.page<typeof handler>(function RecipePage({ data }) {
           </button>
         </form>
       </div>
-      <h1 style={`view-transition-name: vt-title-${recipe.id}`}>
-        <a
-          href={recipe.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="recipe-title-link"
-        >
-          {recipe.name ?? recipe.url}
-        </a>
-      </h1>
       {recipe.image_url && (
         <a
           href={recipe.url}

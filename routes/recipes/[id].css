@@ -2,18 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   margin-bottom: 1rem;
-}
 
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.875rem;
-  color: var(--theme-text-faint);
-
-  &:hover {
-    color: var(--theme-text-strong);
+  & h1 {
+    margin: 0;
   }
 }
 
