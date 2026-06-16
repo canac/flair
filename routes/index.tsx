@@ -1,6 +1,7 @@
 import { define } from "@/utils.ts";
 import { query, type Recipe } from "@/db.ts";
 import RecipeSearch from "@/islands/RecipeSearch/RecipeSearch.tsx";
+import SubmitButton from "@/islands/SubmitButton/SubmitButton.tsx";
 import "./index.css";
 
 export default define.page(async function Home(ctx) {
@@ -28,7 +29,7 @@ export default define.page(async function Home(ctx) {
           required
           placeholder="Paste a recipe URL..."
         />
-        <button type="submit" class="btn-primary">Add</button>
+        <SubmitButton class="btn-primary">Add</SubmitButton>
       </form>
       <ul class="recipe-grid">
         {recipes.map((recipe) => (

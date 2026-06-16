@@ -1,0 +1,13 @@
+.spinner {
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  mask: url(./loader.svg) center / contain no-repeat;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

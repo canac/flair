@@ -32,11 +32,11 @@
   width: 20px;
   height: 20px;
   background-color: currentColor;
-  mask: url(/pin-unfilled.svg) center / contain no-repeat;
+  mask: url(./pin-unfilled.svg) center / contain no-repeat;
 }
 
 .pin-icon.filled {
-  mask-image: url(/pin-filled.svg);
+  mask-image: url(./pin-filled.svg);
 }
 
 .recipe-title-link {

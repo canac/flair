@@ -1,4 +1,5 @@
 import { useState } from "preact/hooks";
+import SubmitButton from "@/islands/SubmitButton/SubmitButton.tsx";
 import "./AdjustmentsEditor.css";
 
 type AdjustmentsEditorProps = {
@@ -25,10 +26,10 @@ export default function AdjustmentsEditor(
             name="adjustments"
             rows={8}
             class="adjustments-textarea"
-            value={text}
+            defaultValue={text}
           />
           <div class="edit-actions">
-            <button type="submit" class="btn-primary">Save</button>
+            <SubmitButton class="btn-primary">Save</SubmitButton>
             <button
               type="button"
               onClick={() => setEditing(false)}
