@@ -12,8 +12,8 @@
       "tags": ["fresh", "recommended"]
     },
     "plugins": [
-      "jsr:@canac/deno-lint-plugins/descriptive-names",
-      "jsr:@canac/deno-lint-plugins/multiline-control-flow"
+      "jsr:@canac/deno-lint-plugins@^0.2.1/descriptive-names",
+      "jsr:@canac/deno-lint-plugins@^0.2.1/multiline-control-flow"
     ]
   },
   "exclude": [
