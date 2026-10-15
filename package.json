@@ -7,7 +7,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "void deploy",
+    "deploy": "void deploy --platform cloudflare",
     "migrate": "void db migrate",
     "fmt": "oxfmt --write .",
     "fmt:check": "oxfmt --check .",
