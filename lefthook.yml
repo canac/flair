@@ -1,5 +1,18 @@
-remotes:
-  - git_url: https://github.com/canac/lefthook-configs.git
-    ref: main
-    configs:
-      - configs/deno.yml
+min_version: 2.0.0
+
+pre-commit:
+  parallel: true
+  commands:
+    fmt:
+      run: pnpm exec oxfmt --no-error-on-unmatched-pattern {staged_files}
+      stage_fixed: true
+
+    lint:
+      run: pnpm exec oxlint --fix {staged_files}
+      stage_fixed: true
+
+    typecheck:
+      run: pnpm typecheck
+
+    test:
+      run: pnpm test

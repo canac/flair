@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "source": {
+    "name": "flair",
+    "observability": {
+      "enabled": true
+    },
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "flair",
+        "database_id": "7a97b37f-3a08-4703-bce8-3c8db7009669",
+        "migrations_dir": "./db/migrations"
+      }
+    ]
+  },
+  "resolved": {
+    "name": "flair",
+    "observability": {
+      "enabled": true
+    },
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "flair",
+        "database_id": "7a97b37f-3a08-4703-bce8-3c8db7009669",
+        "migrations_dir": "./db/migrations"
+      }
+    ],
+    "account_id": "5132a9d4944773bcdc579cf28cc1fd63",
+    "compatibility_date": "2026-02-24"
+  },
+  "text": "{\n  \"name\": \"flair\",\n  \"observability\": {\n    \"enabled\": true\n  },\n  \"d1_databases\": [\n    {\n      \"binding\": \"DB\",\n      \"database_name\": \"flair\",\n      \"database_id\": \"7a97b37f-3a08-4703-bce8-3c8db7009669\",\n      \"migrations_dir\": \"./db/migrations\"\n    }\n  ],\n  \"account_id\": \"5132a9d4944773bcdc579cf28cc1fd63\",\n  \"compatibility_date\": \"2026-02-24\"\n}\n"
+}

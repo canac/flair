@@ -1,4 +1,7 @@
 .DS_Store
-turso.db
-_fresh/
+.tanstack/
+.wrangler/
+.void/
+.void-wrangler.jsonc
+dist/
 node_modules/

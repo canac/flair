@@ -1,30 +1,15 @@
-import { defineConfig } from "vite";
-import { fresh } from "@fresh/plugin-vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
 import process from "node:process";
+import { defineConfig } from "vite";
+import { voidPlugin } from "void";
 
 export default defineConfig({
-  plugins: [fresh()],
   server: {
     port: process.env.PORT ? Number(process.env.PORT) : undefined,
   },
-  ssr: {
-    external: [
-      "@libsql/client",
-      "cheerio",
-      "encoding-sniffer",
-      "iconv-lite",
-      "whatwg-encoding",
-    ],
+  resolve: {
+    tsconfigPaths: true,
   },
-  build: {
-    rollupOptions: {
-      external: [
-        "@libsql/client",
-        "cheerio",
-        "encoding-sniffer",
-        "iconv-lite",
-        "whatwg-encoding",
-      ],
-    },
-  },
+  plugins: [voidPlugin(), tanstackStart(), viteReact()],
 });
