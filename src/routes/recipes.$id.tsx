@@ -1,4 +1,5 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { useOptimistic } from "react";
 import AdjustmentsEditor from "@/components/AdjustmentsEditor/AdjustmentsEditor.tsx";
 import { getRecipe, togglePin } from "@/recipes.ts";
 import recipeCss from "./recipes.$id.css?url";
@@ -25,6 +26,7 @@ function parseList(value: string | null): string[] {
 function RecipePage() {
   const recipe = Route.useLoaderData();
   const router = useRouter();
+  const [pinned, setOptimisticPinned] = useOptimistic(recipe.pinned);
   const ingredients = parseList(recipe.ingredients);
   const instructions = parseList(recipe.instructions);
 
@@ -43,6 +45,7 @@ function RecipePage() {
         </h1>
         <form
           action={async () => {
+            setOptimisticPinned(!pinned);
             await togglePin({ data: recipe.id });
             await router.invalidate();
           }}
@@ -50,10 +53,10 @@ function RecipePage() {
           <button
             type="submit"
             className="pin-button"
-            aria-label={recipe.pinned ? "Unpin recipe" : "Pin recipe"}
-            title={recipe.pinned ? "Unpin recipe" : "Pin recipe"}
+            aria-label={pinned ? "Unpin recipe" : "Pin recipe"}
+            title={pinned ? "Unpin recipe" : "Pin recipe"}
           >
-            <span className={`pin-icon ${recipe.pinned ? "filled" : ""}`} />
+            <span className={`pin-icon ${pinned ? "filled" : ""}`} />
           </button>
         </form>
       </div>
