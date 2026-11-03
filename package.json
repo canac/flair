@@ -19,9 +19,9 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@lukeed/html": "^1.0.2",
     "@tanstack/react-router": "^1.170.44",
     "@tanstack/react-start": "^1.169.1",
-    "cheerio": "^1.2.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },

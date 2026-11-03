@@ -1,4 +1,4 @@
-import * as cheerio from "cheerio/slim";
+import { parse } from "@lukeed/html";
 
 interface RecipeStructuredData {
   name: string | null;
@@ -84,29 +84,31 @@ export async function fetchRecipeData(url: string): Promise<RecipeStructuredData
 }
 
 export function extractRecipeData(html: string): RecipeStructuredData {
-  const $ = cheerio.load(html);
+  const doc = parse(html);
 
   // Empty scraped strings should fall through to the next source
   /* oxlint-disable typescript/prefer-nullish-coalescing */
-  const name = $('meta[property="og:title"]').attr("content") || $("title").text().trim() || null;
+  const name =
+    doc.find('meta[property="og:title"]')?.getAttr("content") ||
+    doc.find("title")?.text.trim() ||
+    null;
   const description =
-    $('meta[property="og:description"]').attr("content") ||
-    $('meta[name="description"]').attr("content") ||
+    doc.find('meta[property="og:description"]')?.getAttr("content") ||
+    doc.find('meta[name="description"]')?.getAttr("content") ||
     null;
   /* oxlint-enable typescript/prefer-nullish-coalescing */
-  const imageUrl = $('meta[property="og:image"]').attr("content") ?? null;
+  const imageUrl = doc.find('meta[property="og:image"]')?.getAttr("content") ?? null;
 
-  const nodes: Record<string, unknown>[] = [];
-  $('script[type="application/ld+json"]').each((_, element) => {
-    const raw = $(element).contents().text();
-    if (!raw.trim()) {
-      return;
+  const nodes = doc.all('script[type="application/ld+json"]').flatMap((element) => {
+    if (!element.text.trim()) {
+      return [];
     }
 
     try {
-      nodes.push(...extractRecipeNodes(JSON.parse(raw)));
+      return [...extractRecipeNodes(JSON.parse(element.text))];
     } catch {
       // ignore invalid JSON-LD blocks
+      return [];
     }
   });
 
