@@ -1,7 +1,7 @@
 import { notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { db, query, type Recipe } from "@/db.ts";
-import { extractRecipeData } from "@/extract.ts";
+import { fetchRecipeData } from "@/extract.ts";
 import { sanitizeUrl } from "@/utils.ts";
 
 export const listRecipes = createServerFn()
@@ -30,30 +30,80 @@ export const getRecipe = createServerFn()
     return { ...recipe, pinned: Boolean(recipe.pinned) };
   });
 
+export interface RecipeDraft {
+  url: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  ingredients: string;
+  instructions: string;
+}
+
+async function findRecipeIdByUrl(url: string): Promise<number | null> {
+  const existing = await db
+    .prepare("SELECT id FROM recipes WHERE url = ?")
+    .bind(url)
+    .first<{ id: number }>();
+  return existing?.id ?? null;
+}
+
 /**
- * Save the recipe at a URL, or find the existing one, and return its id
+ * Scrape the recipe at a URL without saving it, or return the id of the recipe already saved with
+ * that URL
  */
-export const addRecipe = createServerFn({ method: "POST" })
+export const importRecipe = createServerFn({ method: "POST" })
   .validator((url: string) => sanitizeUrl(url))
-  .handler(async ({ data: recipeUrl }) => {
-    const existing = await db
-      .prepare("SELECT id FROM recipes WHERE url = ?")
-      .bind(recipeUrl)
-      .first<{ id: number }>();
-    if (existing) {
-      return existing.id;
+  .handler(async ({ data: url }): Promise<{ existingId: number } | { draft: RecipeDraft }> => {
+    const existingId = await findRecipeIdByUrl(url);
+    if (existingId !== null) {
+      return { existingId };
     }
 
-    const res = await fetch(recipeUrl);
-    const { name, description, imageUrl, ingredients, instructions } = extractRecipeData(
-      await res.text(),
-    );
+    const { name, description, imageUrl, ingredients, instructions } = await fetchRecipeData(url);
+    return {
+      draft: {
+        url,
+        name: name ?? "",
+        description: description ?? "",
+        imageUrl: imageUrl ?? "",
+        ingredients: ingredients.join("\n"),
+        instructions: instructions.join("\n"),
+      },
+    };
+  });
+
+/**
+ * Save a recipe, or find the existing one with the same URL, and return its id
+ */
+export const createRecipe = createServerFn({ method: "POST" })
+  .validator((draft: RecipeDraft) => {
+    const name = draft.name.trim();
+    if (!name) {
+      throw new Error("Recipe name is required");
+    }
+
+    /* oxlint-disable typescript/prefer-nullish-coalescing */
+    return {
+      url: draft.url.trim() ? sanitizeUrl(draft.url.trim()) : null,
+      name,
+      description: draft.description.trim() || null,
+      imageUrl: draft.imageUrl.trim() || null,
+      ingredients: draft.ingredients.trim() || null,
+      instructions: draft.instructions.trim() || null,
+    };
+    /* oxlint-enable typescript/prefer-nullish-coalescing */
+  })
+  .handler(async ({ data: { url, name, description, imageUrl, ingredients, instructions } }) => {
+    const existingId = url === null ? null : await findRecipeIdByUrl(url);
+    if (existingId !== null) {
+      return existingId;
+    }
 
     const { meta } = await db
       .prepare(
         "INSERT INTO recipes (url, name, description, image_url, ingredients, instructions) VALUES (?, ?, ?, ?, ?, ?)",
       )
-      .bind(recipeUrl, name, description, imageUrl, ingredients.join("\n"), instructions.join("\n"))
+      .bind(url, name, description, imageUrl, ingredients, instructions)
       .run();
     return meta.last_row_id;
   });

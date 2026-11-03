@@ -1,0 +1,56 @@
+.import-form,
+.recipe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.import-form {
+  margin-bottom: 1.5rem;
+}
+
+.import-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.import-message {
+  color: var(--theme-text-subtle);
+
+  & a {
+    color: var(--theme-primary);
+    text-decoration: underline;
+  }
+}
+
+.import-error {
+  color: var(--theme-danger);
+}
+
+.recipe-form {
+  gap: 1rem;
+
+  & label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  & textarea {
+    font-family: inherit;
+    resize: vertical;
+  }
+}
+
+.recipe-preview-image {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+.recipe-form-actions {
+  display: flex;
+  gap: 0.5rem;
+}

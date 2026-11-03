@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import SubmitButton from "@/components/SubmitButton/SubmitButton.tsx";
-import { addRecipe, listRecipes } from "@/recipes.ts";
+import { listRecipes } from "@/recipes.ts";
 import indexCss from "./index.css?url";
 
 export const Route = createFileRoute("/")({
@@ -23,8 +22,14 @@ function Home() {
 
   return (
     <div className="page">
-      <h1>Recipes</h1>
+      <div className="home-header">
+        <h1>Recipes</h1>
+        <Link to="/recipes/new" className="btn-primary">
+          Add recipe
+        </Link>
+      </div>
       <form
+        className="search-form"
         onSubmit={(event) => {
           event.preventDefault();
           const query = new FormData(event.currentTarget).get("q");
@@ -32,21 +37,6 @@ function Home() {
         }}
       >
         <input type="search" name="q" defaultValue={q} placeholder="Search recipes by name..." />
-      </form>
-      <form
-        action={async (form) => {
-          const url = form.get("url");
-          if (typeof url !== "string") {
-            return;
-          }
-
-          const id = await addRecipe({ data: url });
-          await navigate({ to: "/recipes/$id", params: { id: String(id) } });
-        }}
-        className="add-form"
-      >
-        <input type="url" name="url" required placeholder="Paste a recipe URL..." />
-        <SubmitButton className="btn-primary">Add</SubmitButton>
       </form>
       <ul className="recipe-grid">
         {recipes.map((recipe) => (

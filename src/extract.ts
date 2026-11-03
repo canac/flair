@@ -68,6 +68,21 @@ function parseInstructions(value: unknown): string[] {
   return steps;
 }
 
+/**
+ * Fetch a recipe page and extract its data, throwing if the request fails
+ */
+export async function fetchRecipeData(url: string): Promise<RecipeStructuredData> {
+  const res = await fetch(url, {
+    headers: {
+      "User-Agent": "Mozilla/5.0 (compatible; Flair/1.0)",
+    },
+  });
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}`);
+  }
+  return extractRecipeData(await res.text());
+}
+
 export function extractRecipeData(html: string): RecipeStructuredData {
   const $ = cheerio.load(html);
 

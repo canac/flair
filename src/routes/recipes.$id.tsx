@@ -37,14 +37,18 @@ function RecipePage() {
     <div className="page page-narrow">
       <div className="recipe-toolbar">
         <h1 style={{ viewTransitionName: `vt-title-${recipe.id}` }}>
-          <a
-            href={recipe.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="recipe-title-link"
-          >
-            {recipe.name ?? recipe.url}
-          </a>
+          {recipe.url ? (
+            <a
+              href={recipe.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="recipe-title-link"
+            >
+              {recipe.name ?? recipe.url}
+            </a>
+          ) : (
+            recipe.name
+          )}
         </h1>
         <form
           action={async () => {
@@ -63,16 +67,24 @@ function RecipePage() {
           </button>
         </form>
       </div>
-      {recipe.image_url && (
-        <a href={recipe.url} target="_blank" rel="noopener noreferrer">
+      {recipe.image_url &&
+        (recipe.url ? (
+          <a href={recipe.url} target="_blank" rel="noopener noreferrer">
+            <img
+              src={recipe.image_url}
+              alt=""
+              className="recipe-hero-image"
+              style={{ viewTransitionName: `vt-img-${recipe.id}` }}
+            />
+          </a>
+        ) : (
           <img
             src={recipe.image_url}
             alt=""
             className="recipe-hero-image"
             style={{ viewTransitionName: `vt-img-${recipe.id}` }}
           />
-        </a>
-      )}
+        ))}
       {recipe.description && <p className="recipe-description">{recipe.description}</p>}
       {ingredients.length > 0 && (
         <>

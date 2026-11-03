@@ -3,7 +3,7 @@ import { env } from "cloudflare:workers";
 export interface Recipe {
   id: number;
   created_at: string;
-  url: string;
+  url: string | null;
   name: string | null;
   description: string | null;
   image_url: string | null;

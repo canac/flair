@@ -129,7 +129,14 @@ h2 {
   max-width: var(--container-narrow-width);
 }
 
-button {
+button,
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
   padding: 0.625rem 1rem;
   border-radius: var(--radius);
   border: 1px solid transparent;
@@ -150,10 +157,6 @@ button {
 }
 
 .btn-danger {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
   background-color: var(--theme-danger);
   color: var(--theme-surface);
   font-weight: bold;

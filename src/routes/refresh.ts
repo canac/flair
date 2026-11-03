@@ -1,27 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { db, query, type Recipe } from "@/db.ts";
-import { extractRecipeData } from "@/extract.ts";
+import { db, query } from "@/db.ts";
+import { fetchRecipeData } from "@/extract.ts";
 
 export const Route = createFileRoute("/refresh")({
   server: {
     handlers: {
       async POST() {
-        const recipes = await query<Pick<Recipe, "id" | "url">>(
+        const recipes = await query<{ id: number; url: string }>(
           "SELECT id, url FROM recipes WHERE url LIKE 'http%'",
         );
 
         const results: string[] = [];
         for (const { id, url } of recipes) {
           try {
-            const res = await fetch(url);
-            if (!res.ok) {
-              results.push(`${url}: HTTP ${res.status}`);
-              continue;
-            }
-
-            const { name, description, imageUrl, ingredients, instructions } = extractRecipeData(
-              await res.text(),
-            );
+            const { name, description, imageUrl, ingredients, instructions } =
+              await fetchRecipeData(url);
             await db
               .prepare(
                 "UPDATE recipes SET name = ?, description = ?, image_url = ?, ingredients = ?, instructions = ? WHERE id = ?",

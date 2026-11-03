@@ -1,10 +1,17 @@
-.add-form {
+.home-header {
   display: flex;
-  align-items: stretch;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  & h1 {
+    margin: 0;
+  }
+}
+
+.search-form {
   margin-bottom: 2rem;
-  width: 100%;
 }
 
 .recipe-grid {
