@@ -1,8 +1,8 @@
+import { cloudflare } from "@cloudflare/vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import process from "node:process";
 import { defineConfig } from "vite";
-import { voidPlugin } from "void";
 
 export default defineConfig({
   server: {
@@ -11,5 +11,5 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
-  plugins: [voidPlugin(), tanstackStart(), viteReact()],
+  plugins: [cloudflare({ viteEnvironment: { name: "ssr" } }), tanstackStart(), viteReact()],
 });

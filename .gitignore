@@ -1,7 +1,5 @@
 .DS_Store
 .tanstack/
 .wrangler/
-.void/
-.void-wrangler.jsonc
 dist/
 node_modules/

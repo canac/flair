@@ -3,5 +3,5 @@ import { defineConfig } from "oxfmt";
 
 export default defineConfig({
   ...base,
-  ignorePatterns: ["src/routeTree.gen.ts"],
+  ignorePatterns: ["src/routeTree.gen.ts", "worker-configuration.d.ts"],
 });

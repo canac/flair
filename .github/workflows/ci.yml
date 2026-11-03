@@ -18,6 +18,8 @@ jobs:
             run: pnpm typecheck
           - name: Test
             run: pnpm test
+          - name: Worker types
+            run: pnpm types:check
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6

@@ -4,5 +4,5 @@ import { defineConfig } from "oxlint";
 export default defineConfig({
   extends: [base],
   plugins: ["node", "react", "vitest"],
-  ignorePatterns: ["src/routeTree.gen.ts"],
+  ignorePatterns: ["src/routeTree.gen.ts", "worker-configuration.d.ts"],
 });

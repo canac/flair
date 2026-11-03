@@ -16,7 +16,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["void/env", "vite/client", "node"]
+    "types": ["./worker-configuration.d.ts", "vite/client", "node"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", ".wrangler", "dist"]
