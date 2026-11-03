@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import SearchBox from "@/components/SearchBox/SearchBox.tsx";
 import { listRecipes } from "@/recipes.ts";
 import indexCss from "./index.css?url";
 
@@ -28,16 +29,11 @@ function Home() {
           Add recipe
         </Link>
       </div>
-      <form
+      <SearchBox
         className="search-form"
-        onSubmit={(event) => {
-          event.preventDefault();
-          const query = new FormData(event.currentTarget).get("q");
-          void navigate({ to: "/", search: { q: typeof query === "string" ? query : undefined } });
-        }}
-      >
-        <input type="search" name="q" defaultValue={q} placeholder="Search recipes by name..." />
-      </form>
+        defaultValue={q}
+        onSearch={(query) => void navigate({ to: "/", search: { q: query || undefined } })}
+      />
       <ul className="recipe-grid">
         {recipes.map((recipe) => (
           <li key={recipe.id}>
