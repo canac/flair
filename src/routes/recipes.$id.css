@@ -57,3 +57,33 @@
   border-radius: var(--radius-lg);
   margin-bottom: 1.5rem;
 }
+
+.delete-recipe-button {
+  width: 100%;
+  margin-top: 3rem;
+}
+
+.delete-dialog {
+  max-width: min(28rem, calc(100% - 2rem));
+  margin: auto;
+  padding: 1.5rem;
+  border: 1px solid var(--theme-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--theme-surface);
+  color: var(--theme-text);
+
+  &::backdrop {
+    background-color: rgb(0 0 0 / 0.5);
+  }
+
+  & h2 {
+    margin-top: 0;
+  }
+}
+
+.delete-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}

@@ -74,3 +74,9 @@ export const saveAdjustments = createServerFn({ method: "POST" })
   .handler(async ({ data: { id, adjustments } }) => {
     await db.prepare("UPDATE recipes SET adjustments = ? WHERE id = ?").bind(adjustments, id).run();
   });
+
+export const deleteRecipe = createServerFn({ method: "POST" })
+  .validator((id: number) => id)
+  .handler(async ({ data: id }) => {
+    await db.prepare("DELETE FROM recipes WHERE id = ?").bind(id).run();
+  });

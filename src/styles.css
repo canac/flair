@@ -23,6 +23,9 @@
   --theme-placeholder-from: #fde68a;
   --theme-placeholder-to: #fbcfe8;
   --theme-primary-ring: rgba(249, 115, 22, 0.15);
+  --theme-danger: #dc2626;
+  --theme-danger-hover: #b91c1c;
+  --theme-danger-active: #991b1b;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -46,6 +49,9 @@
     --theme-placeholder-from: #78350f;
     --theme-placeholder-to: #831843;
     --theme-primary-ring: rgba(251, 146, 60, 0.25);
+    --theme-danger: #f87171;
+    --theme-danger-hover: #fca5a5;
+    --theme-danger-active: #fecaca;
   }
 }
 
@@ -140,6 +146,24 @@ button {
 
   &:active {
     background-color: var(--theme-primary-active);
+  }
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background-color: var(--theme-danger);
+  color: var(--theme-surface);
+  font-weight: bold;
+
+  &:hover {
+    background-color: var(--theme-danger-hover);
+  }
+
+  &:active {
+    background-color: var(--theme-danger-active);
   }
 }
 

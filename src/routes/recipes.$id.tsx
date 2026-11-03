@@ -1,7 +1,8 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { useOptimistic } from "react";
+import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
+import { useOptimistic, useRef } from "react";
 import AdjustmentsEditor from "@/components/AdjustmentsEditor/AdjustmentsEditor.tsx";
-import { getRecipe, togglePin } from "@/recipes.ts";
+import SubmitButton from "@/components/SubmitButton/SubmitButton.tsx";
+import { deleteRecipe, getRecipe, togglePin } from "@/recipes.ts";
 import recipeCss from "./recipes.$id.css?url";
 
 export const Route = createFileRoute("/recipes/$id")({
@@ -26,6 +27,8 @@ function parseList(value: string | null): string[] {
 function RecipePage() {
   const recipe = Route.useLoaderData();
   const router = useRouter();
+  const navigate = useNavigate();
+  const deleteDialog = useRef<HTMLDialogElement>(null);
   const [pinned, setOptimisticPinned] = useOptimistic(recipe.pinned);
   const ingredients = parseList(recipe.ingredients);
   const instructions = parseList(recipe.instructions);
@@ -102,6 +105,34 @@ function RecipePage() {
         </>
       )}
       <AdjustmentsEditor recipeId={recipe.id} adjustments={recipe.adjustments} />
+      <button
+        type="button"
+        className="btn-danger delete-recipe-button"
+        onClick={() => deleteDialog.current?.showModal()}
+      >
+        Delete recipe
+      </button>
+      <dialog ref={deleteDialog} className="delete-dialog" closedby="any">
+        <form
+          action={async () => {
+            await deleteRecipe({ data: recipe.id });
+            await navigate({ to: "/" });
+          }}
+        >
+          <h2>Delete this recipe?</h2>
+          <p>Are you sure you want to permanently delete this recipe?</p>
+          <div className="delete-dialog-actions">
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => deleteDialog.current?.close()}
+            >
+              Cancel
+            </button>
+            <SubmitButton className="btn-danger">Delete</SubmitButton>
+          </div>
+        </form>
+      </dialog>
     </div>
   );
 }
