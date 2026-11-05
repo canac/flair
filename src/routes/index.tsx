@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const recipes = Route.useLoaderData();
-  const { q } = Route.useSearch();
+  const { q: search } = Route.useSearch();
   const navigate = useNavigate();
 
   return (
@@ -31,7 +31,7 @@ function Home() {
       </div>
       <SearchBox
         className="search-form"
-        defaultValue={q}
+        defaultValue={search}
         onSearch={(query) => void navigate({ to: "/", search: { q: query || undefined } })}
       />
       <ul className="recipe-grid">
