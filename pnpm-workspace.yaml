@@ -2,5 +2,8 @@ allowBuilds:
   esbuild: true
   workerd: true
 autoDedupe: true
+lockfile:
+  includeResolutionSettings: true
 minimumReleaseAgeExclude:
   - "@canac/*"
+minimumReleaseAgeExcludePrune: true
